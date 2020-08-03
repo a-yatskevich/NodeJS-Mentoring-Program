@@ -1,4 +1,4 @@
-const { Transform } = require('stream');
+import { Transform } from 'stream';
 
 class ReverseTransformer extends Transform {
   _transform(data, encoding, cb) {
@@ -9,8 +9,8 @@ class ReverseTransformer extends Transform {
         .reverse()
         .concat('\n\n')
         .join('')
-    )
-    cb()
+    );
+    cb();
   }
 }
  
