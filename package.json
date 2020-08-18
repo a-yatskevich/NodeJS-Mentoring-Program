@@ -11,7 +11,7 @@
     "nodemon": "^2.0.4"
   },
   "scripts": {
-    "start" : "nodemon --exec babel-node index.js"
+    "start": "nodemon --exec babel-node ./src/index.js"
   },
   "repository": {
     "type": "git",
@@ -22,5 +22,9 @@
   "bugs": {
     "url": "https://github.com/a-yatskevich/NodeJS-Mentoring-Program/issues"
   },
-  "homepage": "https://github.com/a-yatskevich/NodeJS-Mentoring-Program#readme"
+  "homepage": "https://github.com/a-yatskevich/NodeJS-Mentoring-Program#readme",
+  "dependencies": {
+    "@babel/cli": "^7.10.5",
+    "express": "^4.17.1"
+  }
 }
