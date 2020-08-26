@@ -13,10 +13,14 @@ export const getUserById = (req, res) => {
 };
 
 export const addUser = (req, res) => {
-    console.log(1111, req.body);
-    const user = new User(req.body);
-    users.push(user);
-    res.json(user.getModel());
+    const isExistingLogin = users.some(({ login }) => login === req.body.login);
+    if (isExistingLogin) {
+        res.status(404).send('User with such login is already exist');
+    } else {
+        const user = new User(req.body);
+        users.push(user);
+        res.json(user.getModel());
+    }
 };
 
 export const updateUser = (req, res) => {
@@ -46,7 +50,7 @@ export const removeUser = (req, res) => {
 export const getUsers = (req, res) => {
     const { login, limit  } = req.query;
     let usersToSend = users
-        .filter(user => !user.isDelted)
+        .filter(user => !user.isDeleted)
         .map(user => user.getModel())
         .sort((a, b) => a.login.localeCompare(b.login));
 
