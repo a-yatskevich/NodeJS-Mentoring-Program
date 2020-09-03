@@ -1,14 +1,12 @@
 import express from 'express';
-import dotenv from 'dotenv';
-import routes from './routes';
+import config from './config';
+import appLoaders from './loaders';
 
-dotenv.config();
-const app = express();
-const port = process.env.PORT || 3000;
+const initApp = async () => {
+    const app = express();
+    await appLoaders({ app });
+    const port = config.port || 3000;
+    app.listen(port, () => console.log(`App listening at http://localhost:${port}`));
+};
 
-app.use(express.json());
-app.use('/', routes);
-
-app.listen(port, () => {
-    console.log(`App listening at http://localhost:${port}`);
-});
+initApp();
