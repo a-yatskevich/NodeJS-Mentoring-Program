@@ -15,4 +15,9 @@ const paramsSchema  = Joi.object({
         .required()
 });
 
-export { bodySchema, paramsSchema };
+const querySchema = Joi.object({
+    id: Joi.number()
+        .required()
+});
+
+export { bodySchema, paramsSchema, querySchema };

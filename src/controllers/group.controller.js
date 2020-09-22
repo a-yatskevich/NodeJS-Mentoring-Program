@@ -1,11 +1,13 @@
 class GroupController {
-    constructor(GroupService) {
+    constructor(GroupService, UserGroupService) {
         this.GroupService = GroupService;
+        this.UserGroupService = UserGroupService;
         this.addNewGroup = this.addNewGroup.bind(this);
         this.getAllGroups = this.getAllGroups.bind(this);
         this.getGroup = this.getGroup.bind(this);
         this.removeGroup = this.removeGroup.bind(this);
         this.updateGroup = this.updateGroup.bind(this);
+        this.addUsersToGroup = this.addUsersToGroup.bind(this);
     }
 
     async addNewGroup(req, res) {
@@ -52,6 +54,17 @@ class GroupController {
             res.json(updatedGroup);
         } else {
             res.status(404).send('Group with such id does not exist');
+        }
+    }
+
+    async addUsersToGroup(req, res) {
+        const { id: groupId } = req.params;
+        const { id: userId } = req.query;
+        try {
+            const addedUsers = await this.UserGroupService.addUsersToGroup(groupId, userId);
+            res.send(addedUsers);
+        } catch (err) {
+            res.status(404).send('User was not added');
         }
     }
 }
