@@ -1,6 +1,8 @@
 import UserController from './user.controller';
-import { userService } from '../services';
+import GroupController from './group.controller';
+import { userService, groupeService } from '../services';
 
 const UserCtrl = new UserController(userService);
+const GroupCtrl = new GroupController(groupeService);
 
-export { UserCtrl };
+export { UserCtrl, GroupCtrl };

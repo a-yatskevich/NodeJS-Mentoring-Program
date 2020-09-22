@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { getUsersQueryValidator, userModelValidator, userIdParamValidator } from '../validators/users';
+import { getUsersQueryValidator, userModelValidator, userIdParamValidator } from '../validators/user.validator';
 import { UserCtrl } from '../controllers';
 
 const router = Router();
