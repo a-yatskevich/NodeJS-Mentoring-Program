@@ -4,7 +4,7 @@ import { UserModel, GroupModel, UserGroupModel } from '../models';
 
 export default async () => {
     try {
-        const sequelize = new Sequelize(config.databaseURL);
+        const sequelize = new Sequelize(config.databaseURL, { logging: false });
         await sequelize.authenticate();
         console.log('Database is connected');
 
