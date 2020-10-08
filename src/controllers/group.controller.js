@@ -1,4 +1,5 @@
 import createError from 'http-errors';
+import { getInternalError } from '../helpers';
 
 const NOT_FOUND = 'Group with such id does not exist';
 
@@ -20,10 +21,10 @@ class GroupController {
             const newGroup = await this.GroupService.addNewGroup(group);
 
             res.json(newGroup);
-        } catch (err) {
-            const error = createError(500, err.message);
-            error.controllerMethod = 'addNewGroup';
-            error.methodArguments = JSON.stringify({ group: req.body });
+        } catch ({ message }) {
+            const method = 'addNewGroup';
+            const params = { group: req.body };
+            const error = getInternalError({ message, method, params });
             return next(error);
         }
     }
@@ -33,9 +34,9 @@ class GroupController {
             const groups = await this.GroupService.getAllGroups();
 
             res.json(groups);
-        } catch (err) {
-            const error = createError(500, err.message);
-            error.controllerMethod = 'getAllGroups';
+        } catch ({ message }) {
+            const method = 'addNewGroup';
+            const error = getInternalError({ message, method });
             return next(error);
         }
     }
@@ -51,10 +52,10 @@ class GroupController {
                 const error = createError(404, NOT_FOUND);
                 return next(error);
             }
-        } catch (err) {
-            const error = createError(500, err.message);
-            error.controllerMethod = 'getGroup';
-            error.methodArguments = JSON.stringify({ id: req.params.id });
+        } catch ({ message }) {
+            const method = 'getGroup';
+            const params = { id: req.params.id };
+            const error = getInternalError({ message, method, params });
             return next(error);
         }
     }
@@ -70,10 +71,10 @@ class GroupController {
                 const error = createError(404, NOT_FOUND);
                 return next(error);
             }
-        } catch (err) {
-            const error = createError(500, err.message);
-            error.controllerMethod = 'removeGroup';
-            error.methodArguments = JSON.stringify({ id: req.params.id });
+        } catch ({ message }) {
+            const method = 'removeGroup';
+            const params = { id: req.params.id };
+            const error = getInternalError({ message, method, params });
             return next(error);
         }
     }
@@ -90,10 +91,10 @@ class GroupController {
                 const error = createError(404, NOT_FOUND);
                 return next(error);
             }
-        } catch (err) {
-            const error = createError(500, err.message);
-            error.controllerMethod = 'updateGroup';
-            error.methodArguments = JSON.stringify({ id: req.params.id, updates: req.body });
+        } catch ({ message }) {
+            const method = 'updateGroup';
+            const params = { id: req.params.id, updates: req.body };
+            const error = getInternalError({ message, method, params });
             return next(error);
         }
     }
@@ -109,10 +110,10 @@ class GroupController {
                 const error = createError(404, 'User was not added');
                 return next(error);
             }
-        } catch (err) {
-            const error = createError(500, err.message);
-            error.controllerMethod = 'addUsersToGroup';
-            error.methodArguments = JSON.stringify({ groupId: req.params.id, userId: req.query.id });
+        } catch ({ message }) {
+            const method = 'addUsersToGroup';
+            const params = { groupId: req.params.id, userId: req.query.id };
+            const error = getInternalError({ message, method, params });
             return next(error);
         }
     }

@@ -1,4 +1,5 @@
 import createError from 'http-errors';
+import { getInternalError } from '../helpers';
 
 const NOT_FOUND = 'User does not exist';
 const ALREADY_EXIST = 'User with such login is already exist';
@@ -22,10 +23,10 @@ export default class UserController {
                 const error = createError(404, ALREADY_EXIST);
                 return next(error);
             }
-        } catch (err) {
-            const error = createError(500, err.message);
-            error.controllerMethod = 'addUser';
-            error.methodArguments = JSON.stringify({ user: req.body });
+        } catch ({ message }) {
+            const method = 'addUser';
+            const params = { user: req.body };
+            const error = getInternalError({ message, method, params });
             return next(error);
         }
     }
@@ -41,10 +42,10 @@ export default class UserController {
                 const error = createError(404, NOT_FOUND);
                 return next(error);
             }
-        } catch (err) {
-            const error = createError(500, err.message);
-            error.controllerMethod = 'getUserById';
-            error.methodArguments = JSON.stringify({ id: req.params });
+        } catch ({ message }) {
+            const method = 'getUserById';
+            const params = { id: req.params };
+            const error = getInternalError({ message, method, params });
             return next(error);
         }
     }
@@ -61,10 +62,10 @@ export default class UserController {
                 const error = createError(404, NOT_FOUND);
                 return next(error);
             }
-        } catch (err) {
-            const error = createError(500, err.message);
-            error.controllerMethod = 'updateUser';
-            error.methodArguments = JSON.stringify({ id: req.params.id,  updates: req.body });
+        } catch ({ message }) {
+            const method = 'updateUser';
+            const params = { id: req.params.id,  updates: req.body };
+            const error = getInternalError({ message, method, params });
             return next(error);
         }
     }
@@ -80,10 +81,10 @@ export default class UserController {
                 const error = createError(404, NOT_FOUND);
                 return next(error);
             }
-        } catch (err) {
-            const error = createError(500, err.message);
-            error.controllerMethod = 'removeUser';
-            error.methodArguments = JSON.stringify({ id: req.params.id });
+        } catch ({ message }) {
+            const method = 'removeUser';
+            const params = { id: req.params.id };
+            const error = getInternalError({ message, method, params });
             return next(error);
         }
     }
@@ -94,10 +95,10 @@ export default class UserController {
             const usersToSend = await this.UserService.getUsers(login, limit);
 
             res.json(usersToSend);
-        } catch (err) {
-            const error = createError(500, err.message);
-            error.controllerMethod = 'getUsers';
-            error.methodArguments = JSON.stringify({ login: req.query.login, limit: req.query.limit });
+        } catch ({ message }) {
+            const method = 'getUsers';
+            const params = { login: req.query.login, limit: req.query.limit };
+            const error = getInternalError({ message, method, params });
             return next(error);
         }
     }
