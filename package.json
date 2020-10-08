@@ -29,10 +29,12 @@
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "express-joi-validation": "^4.0.4-beta.0",
+    "http-errors": "^1.8.0",
     "joi": "^17.2.1",
     "pg": "^8.3.3",
     "pg-hstore": "^2.3.3",
     "sequelize": "^6.3.4",
-    "uuid": "^8.3.0"
+    "uuid": "^8.3.0",
+    "winston": "^3.3.3"
   }
 }
