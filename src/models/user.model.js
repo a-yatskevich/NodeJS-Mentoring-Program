@@ -64,6 +64,15 @@ class User extends Sequelize.Model {
 
         return rows;
     }
+
+    static async findByLoginAndPassword(login, password) {
+        return await this.findOne({
+            where: {
+                login,
+                password
+            }
+        });
+    }
 }
 
 export default User;
