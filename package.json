@@ -8,12 +8,15 @@
     "@babel/node": "^7.10.5",
     "@babel/preset-env": "^7.11.0",
     "babel-eslint": "^10.1.0",
+    "babel-jest": "^26.6.2",
     "eslint": "^7.7.0",
+    "jest": "^26.6.2",
     "nodemon": "^2.0.4"
   },
   "scripts": {
     "start": "nodemon --exec babel-node ./src/index.js",
-    "lint": "eslint ./src/"
+    "lint": "eslint ./src/",
+    "test": "jest"
   },
   "repository": {
     "type": "git",

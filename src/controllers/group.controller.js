@@ -103,10 +103,12 @@ class GroupController {
         try {
             const { id: groupId } = req.params;
             const { id: userId } = req.query;
-            try {
-                const addedUsers = await this.UserGroupService.addUsersToGroup(groupId, userId);
+
+            const addedUsers = await this.UserGroupService.addUsersToGroup(groupId, userId);
+
+            if (addedUsers) {
                 res.send(addedUsers);
-            } catch (err) {
+            } else {
                 const error = createError(404, 'User was not added');
                 return next(error);
             }
