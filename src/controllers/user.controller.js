@@ -94,7 +94,12 @@ export default class UserController {
             const { login, limit } = req.query;
             const usersToSend = await this.UserService.getUsers(login, limit);
 
-            res.json(usersToSend);
+            if (usersToSend) {
+                res.json(usersToSend);
+            } else {
+                const error = createError(404, NOT_FOUND);
+                return next(error);
+            }
         } catch ({ message }) {
             const method = 'getUsers';
             const params = { login: req.query.login, limit: req.query.limit };
